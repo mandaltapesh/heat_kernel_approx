@@ -5,7 +5,7 @@ import numpy as np
 
 g =ig.Graph()
 
-g=g.Read_GML("football.gml")
+g=g.Read_GML("karate.gml")
 
 def degree_matrix(A):
     D=[]
@@ -93,7 +93,7 @@ def TNZ(n,I,P,t):
             pro=np.dot(Ppower(P,i),pros)
             s=np.array(s)+np.array(pro)
 
-    return s
+    return typical_mat(s)
 
 def chebyshev(A):
     for le in A:
@@ -115,18 +115,20 @@ A=typical_mat(g.get_adjacency())
 D=degree_matrix(A)
 DI=d_inverse(D)
 I=identity_matrix(A)
-P=typical_mat(np.dot(A,DI))
+P=typical_mat(np.dot(DI,A))
 
 eps=0.05
+
+
 print("Values theoretically should be")
-for t in range(1,11):
-    ft=TNZ(50,I,P,t)
+for t in range(1,21):
+    f=TNZ(100,I,P,t)
     for n in range(1,1000):
         tnz=TNZ(n,I,P,t)
-        approx=typical_mat(np.array(ft)-np.array(tnz))
-        fapprox=chebyshev(approx)
-        if fapprox<=eps/2:
+        approx=chebyshev(np.array(f)-np.array(tnz))
+        if approx<=eps/2:
             print("t=",t,"n=",n)
             break
+
         
         

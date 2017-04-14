@@ -1,5 +1,5 @@
 from __future__ import division
-
+import math
 eps=0.025
 
 def tpow(t,n):
@@ -18,11 +18,12 @@ def fact(n):
 
 print("values according to other researchers")
 
-for t in range(1,11):
+for t in range(1,21):
     approx=1
     for n in range(1,1000):
         if (n+2-t)>0:
             approx=(tpow(t,n+1)*(n+2))/(fact(n+1)*(n+2-t))
         if approx<eps:
-            print("t=",t," ","n=",n)
+            x=(n+2)/(n+2-t)
+            print("t=",t," ","n=",n,"x=",x)
             break
